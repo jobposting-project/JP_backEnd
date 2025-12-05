@@ -1,0 +1,2 @@
+# JP_backEnd
+job-posting-service 사이드 프로젝트
