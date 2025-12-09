@@ -1,4 +1,17 @@
-# Spring Boot Configuration
 spring:
   application:
     name: JP_backEnd
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/jobposting?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
