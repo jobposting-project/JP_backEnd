@@ -31,7 +31,11 @@ public class UserService {
         }
 
         // 3.
-        return jwtProvider.generateToken(user.getUsername(), user.getRole());
+        return jwtProvider.generateToken(
+                user.getUserId(),
+                user.getUsername(),
+                user.getRole()
+        );
     }
 
     public User signup(SignupRequest request) {
