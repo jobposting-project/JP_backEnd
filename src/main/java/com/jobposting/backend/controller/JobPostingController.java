@@ -27,10 +27,8 @@ public class JobPostingController {
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         Long userId = userDetails.getUser().getUserId();
-
         List<JobPostingListResponse> response =
                 jobPostingService.getJobPostingList(userId);
-
         return ResponseEntity.ok(response);
     }
 }
