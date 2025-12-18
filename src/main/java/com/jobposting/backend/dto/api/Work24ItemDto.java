@@ -50,24 +50,25 @@ public class Work24ItemDto {
     private String empRcptMthdCont; // applyMethod
 
     // DTO 변환 메서드
-    public JobPostingCreateRequest toCreateRequest() {
+    public JobPostingCreateRequest toCreateRequest(String jobCategory) {
         LocalDate start = parseDate(empWantedStdt);
         LocalDate end = parseDate(empWantedEndt);
+
+        // 지원 링크 우선순위: 상세홈페이지 > 모바일URL
+        String finalApplyUrl = (empWantedHomepgDetail != null && !empWantedHomepgDetail.isEmpty())
+                ? empWantedHomepgDetail
+                : empWantedMobileUrl;
 
         return JobPostingCreateRequest.builder()
                 .externalId(empSeqno)
                 .sourceType("WORK24")
                 .title(empWantedTitle)
                 .companyName(empBusiNm)
-                .companyType(coClcdNm)
+                .jobCategory(jobCategory) // 직군명 주입
                 .employmentType(empWantedTypeNm)
                 .startDate(start)
                 .endDate(end)
-                .applyUrl(empWantedHomepgDetail)
-                .mobileApplyUrl(empWantedMobileUrl)
-                .homepageUrl(empWantedHomepgDetail)
-                .logoFile(regLogImgNm)
-                .applyMethod(empRcptMthdCont)
+                .applyUrl(finalApplyUrl)
                 .build();
     }
 
