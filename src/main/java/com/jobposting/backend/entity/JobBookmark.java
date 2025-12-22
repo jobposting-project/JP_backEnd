@@ -1,33 +1,33 @@
 package com.jobposting.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "job_bookmark",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id", "job_posting_id"})
+        })
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "job_bookmark")
 @EntityListeners(AuditingEntityListener.class)
 public class JobBookmark {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "job_bookmark_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_posting_id")
+    @JoinColumn(name = "job_posting_id", nullable = false)
     private JobPosting jobPosting;
 
     @CreatedDate

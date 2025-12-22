@@ -1,14 +1,14 @@
 # Spring Boot Configuration
-# Spring Boot Configuration
 spring:
   config:
     import: optional:file:./application-secret.yml
+  
   application:
     name: JP_backEnd
-
+  
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
