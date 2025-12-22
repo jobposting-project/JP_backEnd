@@ -2,40 +2,44 @@ package com.jobposting.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class User {
-
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class User extends BaseTimeEntity {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String username;
 
     @Column(nullable = false, length = 255)
     private String password;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
 
     @Column(nullable = false, length = 100)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String role;
+    private Role role;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Builder
+    public User(String username, String email, String password, String name, Role role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+    }
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    public enum Role {
+        USER, ADMIN
+    }
 }

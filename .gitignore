@@ -29,5 +29,6 @@ Thumbs.db
 *.tar.gz
 /src/main/resources/application*.properties
 /src/main/resources/application*.yml
+application-secret.yml
 !/src/main/resources/application.properties
 !/src/main/resources/application.yml
